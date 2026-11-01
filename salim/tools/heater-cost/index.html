@@ -31,7 +31,8 @@ text-decoration:none}.acc b{font-size:18px}footer{font-size:13px;opacity:.6;marg
 .tool label{display:block;font-weight:700;margin:0 0 14px}.tool label small{font-weight:400;opacity:.65}
 .tool input{display:block;width:100%;margin-top:6px;padding:12px;font-size:17px;border:1px solid #cfd4da;
 border-radius:10px;background:#fff;color:inherit;min-height:48px}
-.answer{font-size:28px;font-weight:800;line-height:1.25;margin:6px 0 10px;min-height:35px;overflow-wrap:anywhere}
+.answer:empty{display:none}.answer.wait{font-size:17px;font-weight:400;opacity:.65}
+.answer{font-size:25px;font-weight:800;line-height:1.25;margin:6px 0 10px;min-height:35px;overflow-wrap:anywhere}
 .facts{margin:0;padding:0;list-style:none}.facts li{display:flex;justify-content:space-between;gap:12px;
 padding:9px 0;border-top:1px solid #eef0f2}.facts b{white-space:nowrap}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
@@ -58,6 +59,7 @@ th,td{padding:9px 10px;border-bottom:1px solid #eef0f2;text-align:center}th{font
 <h2 class="sec">계산 기준</h2>
 <div class="item"><ul>
 <li>표기 소비전력으로 계속 켠다고 본 <b>최대치</b>예요. 온도 조절로 꺼졌다 켜지면 실제 요금은 더 적어요. '절반만 켜질 때'는 이해를 돕는 가정이고, 실제 비율은 제품과 설정에 따라 달라요.</li>
+<li>평소 사용량이 200이나 400kWh 바로 아래면 구간이 바뀌어 추가 요금이 더 커져요.</li>
 <li>겨울 4개월은 11~2월에 평소 사용량과 켜는 시간이 같다고 본 합계예요.</li>
 <li><a href="https://online.kepco.co.kr/PRM004D00" rel="nofollow">한전 주택용 저압 요금표</a>(1~6월·9~12월)의 기본요금·전력량요금에 부가세 10%, 전력기금 2.7%를 더했어요. 2026년 11월 1일에 확인했어요.</li>
 <li>기후환경요금·연료비조정요금과 복지 할인은 넣지 않았어요. 겨울철 사용량이 1,000kWh를 넘는 집의 추가 요금도 빠져 있어요. 실제 금액은 고지서로 확인해 주세요.</li>
@@ -71,11 +73,11 @@ function run(){const W=G('w'),H=G('h'),D=G('d'),B=document.getElementById('b').v
 if(H>24||D>31||W>3000||H<0||D<0||W<0||B<0){A.textContent='하루 24시간, 한 달 31일 안쪽으로 넣어 주세요';return}
 const k=W/1000*H*D;if(!(k>0)){A.textContent='값을 넣어 주세요';return}
 const w=n=>Math.round(n/10)*10,m=n=>n.toLocaleString()+'원',p=w(bill(B)),q=w(bill(B+k)),e=q-p,h=w(bill(B+k/2))-p;
-A.textContent='한 달 최대 약 '+m(e)+' 더';
-const R=[['하루로 치면 약',m(w(e/D))],['겨울 4개월이면 약',m(e*4)],['절반만 켜질 때 한 달 약',m(h)],['추가 사용량',k.toFixed(1)+' kWh'],['평소 요금',m(p)],['켠 뒤 요금',m(q)]];
+A.textContent=W+'W를 하루 '+H+'시간이면 한 달에 최대 약 '+m(e)+' 더 나와요';
+const R=[['기준 평소 사용량',B+' kWh'],['하루로 치면 약',m(w(e/D))],['겨울 4개월이면 약',m(e*4)],['절반만 켜질 때 한 달 약',m(h)],['추가 사용량',k.toFixed(1)+' kWh'],['평소 요금',m(p)],['켠 뒤 요금',m(q)]];
 if(tier(B+k)>tier(B))R.push(['누진 구간',tier(B)+'구간 → '+tier(B+k)+'구간']);
 for(const[a,v]of R){const li=document.createElement('li');li.append(a);const s=document.createElement('b');s.textContent=v;li.append(s);F.append(li)}}
 for(const i of['w','h','d','b'])document.getElementById(i).addEventListener('input',run);
 document.getElementById('chips').addEventListener('click',e=>{const v=e.target.dataset.w;if(v){document.getElementById('w').value=v;run()}});run();
 </script>
-<h2 class="sec">용품을 고르는 중이라면</h2><div class="item"><ul><li><a href="../../compare/2026-10-13-carbon-vs-water-mat/">탄소매트 온수매트 차이 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">살림템 정리노트 비교 모두 보기</a><p class="prod" style="text-align:center;margin-top:20px"><a href="https://whereisdw.github.io/picknote/about/">비교노트는 어떻게 만드나요?</a></p></main></body></html>
+<h2 class="sec">용품을 고르는 중이라면</h2><div class="item"><ul><li><a href="../../compare/2026-10-13-carbon-vs-water-mat/">탄소매트 온수매트 차이 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">살림템 정리노트 비교 글 전체 보기</a><p class="prod" style="text-align:center;margin-top:20px"><a href="https://whereisdw.github.io/picknote/about/">비교노트는 어떻게 만드나요?</a></p></main></body></html>
