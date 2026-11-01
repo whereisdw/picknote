@@ -1,0 +1,75 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>아기 개월수 계산기 | 오늘 몇 개월, 100일·돌 날짜</title><meta name="description" content="생일만 넣으면 아기 개월수와 태어난 지 며칠째인지, 100일·돌 날짜, 교정 개월수까지 바로 계산해요."><link rel="canonical" href="https://whereisdw.github.io/picknote/baby/tools/baby-months/"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="아기 개월수 계산기 | 오늘 몇 개월, 100일·돌 날짜"><meta property="og:description" content="생일만 넣으면 아기 개월수와 태어난 지 며칠째인지, 100일·돌 날짜, 교정 개월수까지 바로 계산해요."><meta property="og:url" content="https://whereisdw.github.io/picknote/baby/tools/baby-months/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "아기 개월수 계산기", "url": "https://whereisdw.github.io/picknote/baby/tools/baby-months/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "All", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script><style>:root{--bg:#EEF8F4;--accent:#EE9A7C;--text:#2E3A37}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",
+"Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+main{max-width:640px;margin:0 auto;padding:24px 16px 64px}
+.disc{background:#fff;border:2px solid var(--accent);border-radius:12px;padding:12px 14px;font-size:15px;
+font-weight:600;margin:0 0 20px}
+h1{font-size:24px;margin:8px 0 4px}.sub{margin:0 0 20px;opacity:.8}
+.item{background:#fff;border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.num{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;
+font-weight:700;font-size:14px}.date{font-size:13px;opacity:.6;margin-left:8px}
+h2{font-size:19px;margin:10px 0 8px}ul{margin:0 0 12px;padding-left:18px}li{margin:2px 0}li a{display:inline-block;padding:7px 0}
+.scene{font-size:15px;font-weight:800;color:#d9480f;margin:0 0 10px}
+.prod{font-size:14px;opacity:.75;margin:0 0 12px}
+.btn{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;
+font-weight:700;border-radius:12px;padding:13px}.more{display:block;text-align:center;font-size:14px;padding:11px 0;
+margin-top:8px;color:var(--text);opacity:.7}
+.item img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:0 0 12px}
+.meta{display:flex;align-items:center}.sec{font-size:17px;margin:24px 0 12px}.sec small{font-weight:400;opacity:.6;font-size:13px}
+.deal{background:#fff;border-radius:18px;padding:18px;margin:0 0 14px;box-shadow:0 2px 8px rgba(49,130,246,.12);
+border:1px solid #e5eefc}.badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.badge{font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px;background:#eef4ff;color:#1b64da}
+.badge.hot{background:#fff1f0;color:#e5372b}.hook{font-size:30px;font-weight:800;line-height:1.15;margin:2px 0 6px;
+color:#191f28}.deal h2{font-size:17px;margin:0 0 6px}.deal h2 small{font-weight:400;opacity:.6;font-size:13px}
+.btn.toss{background:#3182f6;font-size:17px;padding:16px}
+.btn.naver{background:#03c75a;font-size:17px;padding:16px}
+.acc{display:block;background:#fff;border-radius:16px;padding:18px;margin:0 0 12px;color:inherit;
+text-decoration:none}.acc b{font-size:18px}footer{font-size:13px;opacity:.6;margin-top:24px}
+
+.tool{background:#fff;border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.tool label{display:block;font-weight:700;margin:0 0 14px}.tool label small{font-weight:400;opacity:.65}
+.tool input{display:block;width:100%;margin-top:6px;padding:12px;font-size:17px;border:1px solid #cfd4da;
+border-radius:10px;background:#fff;color:inherit;min-height:48px}
+.answer{font-size:28px;font-weight:800;line-height:1.25;margin:6px 0 10px;min-height:35px;overflow-wrap:anywhere}
+.facts{margin:0;padding:0;list-style:none}.facts li{display:flex;justify-content:space-between;gap:12px;
+padding:9px 0;border-top:1px solid #eef0f2}.facts b{white-space:nowrap}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:9px 10px;border-bottom:1px solid #eef0f2;text-align:center}th{font-size:14px}
+</style></head><body><main>
+<h1>아기 개월수 계산기</h1>
+<p class="sub">생일만 넣으면 오늘 몇 개월 며칠인지, 100일과 돌이 언제인지 바로 나와요. 입력한 날짜는 이 기기 밖으로 나가지 않아요.</p>
+<div class="tool">
+<label>태어난 날<input id="birth" type="date"></label>
+<label>기준일 <small>비워 두면 오늘</small><input id="on" type="date"></label>
+<label>출산 예정일 <small>이른둥이 교정 개월수가 필요할 때만</small><input id="due" type="date"></label>
+<p class="answer" id="answer" aria-live="polite">생일을 넣어 주세요</p>
+<ul class="facts" id="facts"></ul>
+</div>
+<h2 class="sec">이렇게 세요</h2>
+<div class="item"><ul>
+<li><b>개월수</b>: 태어난 날과 같은 날짜가 돌아오면 1개월이 늘어나요. 1월 31일생처럼 그 달에 같은 날짜가 없으면 그 달 말일로 쳐요.</li>
+<li><b>100일</b>: 태어난 날을 1일째로 세는 관습대로 계산해요. 그래서 생일에 99일을 더한 날이에요.</li>
+<li><b>교정 개월수</b>: 생일 대신 출산 예정일부터 센 값이에요. 병원에서 따로 알려 준 값이 있으면 그 값을 따르세요.</li>
+</ul></div>
+<script>
+function parts(a,b){let m=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();
+let s=addMonths(a,m);if(s>b){m--;s=addMonths(a,m)}return{m,d:Math.round((b-s)/864e5)}}
+function addMonths(a,n){const y=a.getFullYear(),t=a.getMonth()+n,l=new Date(y,t+1,0).getDate();
+return new Date(y,t,Math.min(a.getDate(),l))}
+function addDays(a,n){return new Date(a.getFullYear(),a.getMonth(),a.getDate()+n)}
+function parse(v){if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return null;const[y,m,d]=v.split('-').map(Number);
+const x=new Date(y,m-1,d);return x.getMonth()===m-1?x:null}
+function iso(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
+function show(x){return x.getFullYear()+'년 '+(x.getMonth()+1)+'월 '+x.getDate()+'일'}
+
+const $=i=>document.getElementById(i);
+function run(){const b=parse($('birth').value),o=parse($('on').value)||new Date(),t=new Date(o.getFullYear(),o.getMonth(),o.getDate()),f=$('facts');
+f.innerHTML='';if(!b){$('answer').textContent='생일을 넣어 주세요';return}
+if(b>t){$('answer').textContent='기준일이 생일보다 빨라요';return}
+const p=parts(b,t),n=Math.round((t-b)/864e5)+1;$('answer').textContent=p.m+'개월 '+p.d+'일';
+const rows=[['태어난 지',n.toLocaleString()+'일째'],['100일',show(addDays(b,99))],['첫돌',show(addMonths(b,12))],['두 돌',show(addMonths(b,24))]];
+const d=parse($('due').value);if(d&&d<=t){const c=parts(d,t);rows.unshift(['교정 개월수',c.m+'개월 '+c.d+'일'])}else if(d){rows.unshift(['교정 개월수','예정일 전이에요'])}
+for(const[k,v]of rows){const li=document.createElement('li');li.append(k);const s=document.createElement('b');s.textContent=v;li.append(s);f.append(li)}}
+for(const i of['birth','on','due'])$(i).addEventListener('input',run);run();
+</script>
+<h2 class="sec">함께 보면 좋은 비교</h2><div class="item"><ul><li><a href="../../compare/2026-10-13-bottle-washer/">젖병세척기 비교 추천</a></li><li><a href="../../compare/2026-10-09-bottle-sterilizer/">젖병소독기 UV vs 스팀 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">육아템 정리노트 전체 보기</a></main></body></html>
