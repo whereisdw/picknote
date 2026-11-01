@@ -1,4 +1,5 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>전기장판 전기세 계산기 | 누진 구간 반영, 한 달 얼마 더 나올까</title><meta name="description" content="소비전력과 사용 시간을 넣으면 전기장판·전기매트로 한 달 전기요금이 얼마나 늘지 한전 요금표 기준으로 계산해요."><link rel="canonical" href="https://whereisdw.github.io/picknote/salim/tools/heater-cost/"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="전기장판 전기세 계산기 | 누진 구간 반영, 한 달 얼마 더 나올까"><meta property="og:description" content="소비전력과 사용 시간을 넣으면 전기장판·전기매트로 한 달 전기요금이 얼마나 늘지 한전 요금표 기준으로 계산해요."><meta property="og:url" content="https://whereisdw.github.io/picknote/salim/tools/heater-cost/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "전기장판·전기매트 전기세 계산기", "url": "https://whereisdw.github.io/picknote/salim/tools/heater-cost/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "All", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script><style>:root{--bg:#F3ECE0;--accent:#6B7B3A;--text:#2F2B24}
+details{margin:16px 0}summary{cursor:pointer;padding:12px 0;font-weight:700}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",
 "Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
 main{max-width:640px;margin:0 auto;padding:24px 16px 64px}
@@ -34,35 +35,47 @@ border-radius:10px;background:#fff;color:inherit;min-height:48px}
 .facts{margin:0;padding:0;list-style:none}.facts li{display:flex;justify-content:space-between;gap:12px;
 padding:9px 0;border-top:1px solid #eef0f2}.facts b{white-space:nowrap}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.chips button{min-height:44px;padding:0 12px;
+border:1px solid #cfd4da;border-radius:22px;background:#fff;color:inherit;font-size:15px}
+.tool select{display:block;width:100%;margin-top:6px;padding:12px;font-size:17px;border:1px solid #cfd4da;
+border-radius:10px;background:#fff;color:inherit;min-height:48px}
 th,td{padding:9px 10px;border-bottom:1px solid #eef0f2;text-align:center}th{font-size:14px}
 </style></head><body><main>
 <h1>전기장판·전기매트 전기세 계산기</h1>
 <p class="sub">소비전력과 쓰는 시간을 넣으면 평소 전기요금에 얼마가 더 붙는지 누진 구간까지 반영해 보여 줘요.</p>
 <div class="tool">
-<label>소비전력(W) <small>제품 라벨이나 판매 페이지 표기</small><input id="w" type="number" inputmode="numeric" min="1" value="150"></label>
-<label>하루 사용 시간<input id="h" type="number" inputmode="decimal" min="0" max="24" step="0.5" value="8"></label>
-<label>한 달 사용 일수<input id="d" type="number" inputmode="numeric" min="1" max="31" value="30"></label>
-<label>평소 한 달 전기 사용량(kWh) <small>고지서에 있어요. 모르면 300</small><input id="b" type="number" inputmode="numeric" min="0" value="300"></label>
 <p class="answer" id="answer" aria-live="polite"></p>
 <ul class="facts" id="facts"></ul>
 </div>
+<div class="tool">
+<label>소비전력(W) <small>제품 라벨이나 판매 페이지 표기</small><input id="w" type="number" inputmode="numeric" min="1" max="3000" value="150"></label>
+<div class="chips" id="chips"><button type="button" data-w="59">59W</button><button type="button" data-w="103">103W</button><button type="button" data-w="150">150W</button><button type="button" data-w="240">240W</button><button type="button" data-w="350">350W</button></div>
+<p class="prod">모르면 눌러 보세요. 판매 페이지에서 본 표기 예: 일월 전기매트 59W, 까사 카본 탄소매트 103W, 한일 전기요 150W, 일월 온수매트 240W, 한일 거실용 350W.</p>
+<label>하루 사용 시간<input id="h" type="number" inputmode="decimal" min="0" max="24" step="0.5" value="8"></label>
+<label>한 달 사용 일수<input id="d" type="number" inputmode="numeric" min="1" max="31" value="30"></label>
+<label>평소 한 달 전기 사용량(kWh) <small>고지서에 있어요. 모르면 그대로 두세요</small><input id="b" type="number" inputmode="numeric" min="0" value="300" placeholder="300"></label>
+</div>
 <h2 class="sec">계산 기준</h2>
 <div class="item"><ul>
-<li>표기 소비전력으로 계속 켠다고 본 <b>최대치</b>예요. 온도 조절로 꺼졌다 켜지면 실제 요금은 더 적어요.</li>
+<li>표기 소비전력으로 계속 켠다고 본 <b>최대치</b>예요. 온도 조절로 꺼졌다 켜지면 실제 요금은 더 적어요. '절반만 켜질 때'는 이해를 돕는 가정이고, 실제 비율은 제품과 설정에 따라 달라요.</li>
+<li>겨울 4개월은 11~2월에 평소 사용량과 켜는 시간이 같다고 본 합계예요.</li>
 <li><a href="https://online.kepco.co.kr/PRM004D00" rel="nofollow">한전 주택용 저압 요금표</a>(1~6월·9~12월)의 기본요금·전력량요금에 부가세 10%, 전력기금 2.7%를 더했어요. 2026년 11월 1일에 확인했어요.</li>
-<li>기후환경요금·연료비조정요금, 복지 할인, 12~2월 슈퍼유저 요금(1,000kWh 초과)은 넣지 않았어요. 실제 금액은 고지서로 확인해 주세요.</li>
+<li>기후환경요금·연료비조정요금과 복지 할인은 넣지 않았어요. 겨울철 사용량이 1,000kWh를 넘는 집의 추가 요금도 빠져 있어요. 실제 금액은 고지서로 확인해 주세요.</li>
 </ul></div>
 <script>
 const T=[[200,120,910],[400,214.6,1600],[Infinity,307.3,7300]];
 function bill(k){let c=0,l=0,f=910;for(const[t,r,x]of T){if(k>l){f=x;c+=(Math.min(k,t)-l)*r}l=t}return(f+c)*1.127}
 function tier(k){return k<=200?1:k<=400?2:3}
 const G=i=>Number(document.getElementById(i).value);
-function run(){const k=G('w')/1000*G('h')*G('d'),b=G('b'),A=document.getElementById('answer'),F=document.getElementById('facts');F.innerHTML='';
-if(!(k>0)||!(b>=0)){A.textContent='값을 넣어 주세요';return}
-const w=n=>Math.round(n/10)*10;A.textContent='한 달 최대 약 '+w(bill(b+k)-bill(b)).toLocaleString()+'원 더';
-const R=[['추가 사용량',k.toFixed(1)+' kWh'],['평소 요금',w(bill(b)).toLocaleString()+'원'],['켠 뒤 요금',w(bill(b+k)).toLocaleString()+'원']];
-if(tier(b+k)>tier(b))R.push(['누진 구간',tier(b)+'구간 → '+tier(b+k)+'구간']);
+function run(){const W=G('w'),H=G('h'),D=G('d'),B=document.getElementById('b').value===''?300:G('b'),A=document.getElementById('answer'),F=document.getElementById('facts');F.innerHTML='';
+if(H>24||D>31||W>3000||H<0||D<0||W<0||B<0){A.textContent='하루 24시간, 한 달 31일 안쪽으로 넣어 주세요';return}
+const k=W/1000*H*D;if(!(k>0)){A.textContent='값을 넣어 주세요';return}
+const w=n=>Math.round(n/10)*10,m=n=>n.toLocaleString()+'원',p=w(bill(B)),q=w(bill(B+k)),e=q-p,h=w(bill(B+k/2))-p;
+A.textContent='한 달 최대 약 '+m(e)+' 더';
+const R=[['하루로 치면 약',m(w(e/D))],['겨울 4개월이면 약',m(e*4)],['절반만 켜질 때 한 달 약',m(h)],['추가 사용량',k.toFixed(1)+' kWh'],['평소 요금',m(p)],['켠 뒤 요금',m(q)]];
+if(tier(B+k)>tier(B))R.push(['누진 구간',tier(B)+'구간 → '+tier(B+k)+'구간']);
 for(const[a,v]of R){const li=document.createElement('li');li.append(a);const s=document.createElement('b');s.textContent=v;li.append(s);F.append(li)}}
-for(const i of['w','h','d','b'])document.getElementById(i).addEventListener('input',run);run();
+for(const i of['w','h','d','b'])document.getElementById(i).addEventListener('input',run);
+document.getElementById('chips').addEventListener('click',e=>{const v=e.target.dataset.w;if(v){document.getElementById('w').value=v;run()}});run();
 </script>
-<h2 class="sec">함께 보면 좋은 비교</h2><div class="item"><ul><li><a href="../../compare/2026-10-13-carbon-vs-water-mat/">탄소매트 온수매트 차이 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">살림템 정리노트 전체 보기</a></main></body></html>
+<h2 class="sec">용품을 고르는 중이라면</h2><div class="item"><ul><li><a href="../../compare/2026-10-13-carbon-vs-water-mat/">탄소매트 온수매트 차이 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">살림템 정리노트 비교 모두 보기</a><p class="prod" style="text-align:center;margin-top:20px"><a href="https://whereisdw.github.io/picknote/about/">비교노트는 어떻게 만드나요?</a></p></main></body></html>
