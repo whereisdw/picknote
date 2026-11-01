@@ -31,7 +31,8 @@ text-decoration:none}.acc b{font-size:18px}footer{font-size:13px;opacity:.6;marg
 .tool label{display:block;font-weight:700;margin:0 0 14px}.tool label small{font-weight:400;opacity:.65}
 .tool input{display:block;width:100%;margin-top:6px;padding:12px;font-size:17px;border:1px solid #cfd4da;
 border-radius:10px;background:#fff;color:inherit;min-height:48px}
-.answer{font-size:28px;font-weight:800;line-height:1.25;margin:6px 0 10px;min-height:35px;overflow-wrap:anywhere}
+.answer:empty{display:none}.answer.wait{font-size:17px;font-weight:400;opacity:.65}
+.answer{font-size:25px;font-weight:800;line-height:1.25;margin:6px 0 10px;min-height:35px;overflow-wrap:anywhere}
 .facts{margin:0;padding:0;list-style:none}.facts li{display:flex;justify-content:space-between;gap:12px;
 padding:9px 0;border-top:1px solid #eef0f2}.facts b{white-space:nowrap}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
@@ -46,10 +47,10 @@ th,td{padding:9px 10px;border-bottom:1px solid #eef0f2;text-align:center}th{font
 <div class="tool">
 <label>고양이 나이 (살)<input id="y" type="number" inputmode="numeric" min="0" max="30" step="1" placeholder="예: 7"></label>
 <label>추가 개월 <small>없으면 비워 두세요</small><input id="m" type="number" inputmode="numeric" min="0" max="11" step="1" placeholder="예: 6"></label>
-<p class="answer" id="answer" aria-live="polite">나이를 넣어 주세요</p>
+<p class="answer wait" id="answer" aria-live="polite">나이를 넣어 주세요</p>
 </div>
 <h2 class="sec">한눈에 보기</h2>
-<table><tr><th>나이</th><th>고양이</th></tr><tr><td>1살</td><td>15살쯤</td></tr><tr><td>2살</td><td>24살쯤</td></tr><tr><td>3살</td><td>28살쯤</td></tr><tr><td>5살</td><td>36살쯤</td></tr><tr><td>7살</td><td>44살쯤</td></tr><tr><td>10살</td><td>56살쯤</td></tr><tr><td>12살</td><td>64살쯤</td></tr><tr><td>15살</td><td>76살쯤</td></tr></table>
+<table><tr><th>나이</th><th>사람 나이로</th></tr><tr><td>1살</td><td>15살쯤</td></tr><tr><td>2살</td><td>24살쯤</td></tr><tr><td>3살</td><td>28살쯤</td></tr><tr><td>5살</td><td>36살쯤</td></tr><tr><td>7살</td><td>44살쯤</td></tr><tr><td>10살</td><td>56살쯤</td></tr><tr><td>12살</td><td>64살쯤</td></tr><tr><td>15살</td><td>76살쯤</td></tr></table>
 <h2 class="sec">어떻게 계산하나요</h2>
 <div class="item"><ul>
 <li>첫 1년을 사람 15살, 2년째를 9살로 치고, 그 뒤 한 해를 표의 값만큼 더하는 널리 쓰는 어림 규칙이에요.</li>
@@ -59,10 +60,10 @@ th,td{padding:9px 10px;border-bottom:1px solid #eef0f2;text-align:center}th{font
 <script>
 const Y=document.getElementById('y'),M=document.getElementById('m'),A=document.getElementById('answer'),S=document.getElementById('s');
 function age(t,p){if(t<=1)return 15*t;if(t<=2)return 15+9*(t-1);return 24+p*(t-2)}
-function run(){const y=Number(Y.value||0),m=Number(M.value||0),p=S?Number(S.value):4;
+function run(){const y=Number(Y.value||0),m=Number(M.value||0),p=S?Number(S.value):4;A.className='answer wait';
 if(!(y>=0&&m>=0)||(y+m===0)){A.textContent='나이를 넣어 주세요';return}
 if(y>30||m>11){A.textContent='나이는 30살, 개월은 11개월까지 넣어 주세요';return}
-A.textContent='사람 나이로 약 '+Math.round(age(y+m/12,p))+'살'}
+A.className='answer';A.textContent='사람 나이로 약 '+Math.round(age(y+m/12,p))+'살'}
 for(const e of[Y,M,S])if(e)e.addEventListener('input',run);
 </script>
-<h2 class="sec">용품을 고르는 중이라면</h2><div class="item"><ul><li><a href="../../compare/2026-10-09-cat-litter-box/">고양이 자동화장실 오픈형 비교</a></li><li><a href="../../compare/2026-10-07-pet-feeder/">디클펫 자동급식기 AT-310 vs AT-210 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">멍냥템 정리노트 비교 모두 보기</a><p class="prod" style="text-align:center;margin-top:20px"><a href="https://whereisdw.github.io/picknote/about/">비교노트는 어떻게 만드나요?</a></p></main></body></html>
+<h2 class="sec">용품을 고르는 중이라면</h2><div class="item"><ul><li><a href="../../compare/2026-10-09-cat-litter-box/">고양이 자동화장실 오픈형 비교</a></li><li><a href="../../compare/2026-10-07-pet-feeder/">디클펫 자동급식기 AT-310 vs AT-210 비교</a></li></ul><p class="prod">비교 글에는 제휴 링크가 있어요.</p></div><a class="more" href="../../">멍냥템 정리노트 비교 글 전체 보기</a><p class="prod" style="text-align:center;margin-top:20px"><a href="https://whereisdw.github.io/picknote/about/">비교노트는 어떻게 만드나요?</a></p></main></body></html>
