@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+
+User-agent: Yeti
+Disallow: /picknote/*/article/
+
 Sitemap: https://whereisdw.github.io/picknote/sitemap.xml
