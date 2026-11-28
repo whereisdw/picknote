@@ -2,6 +2,8 @@ User-agent: *
 Allow: /
 
 User-agent: Yeti
+Allow: /picknote/salim/article/2026-11-23-navien-carbon-vs-water-queen/
+Allow: /picknote/salim/article/2026-11-23-heater-seh-f3000-vs-pph3k/
 Disallow: /picknote/*/article/
 
 Sitemap: https://whereisdw.github.io/picknote/sitemap.xml
